@@ -21,7 +21,10 @@
   },
   "license": "MIT",
   "devDependencies": {},
-  "contributors": [],
+  "contributors": [
+    "Florian Grundig <florian.grundig@gmx.de>",
+    "Oliver Hoogvliet <oliver@hoogvliet.de>"
+  ],
   "readme": "# karma-remote-reporter\n\n> Reporter for remote receivers.",
   "readmeFilename": "README.md",
   "_id": "karma-remote-reporter@0.0.1"
