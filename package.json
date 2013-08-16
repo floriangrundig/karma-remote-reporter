@@ -15,17 +15,14 @@
     "name": "Grundig Florian",
     "email": "florian.grundig@gmx.de"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "peerDependencies": {
     "karma": "~0.9"
   },
   "license": "MIT",
-  "devDependencies": {
-  },
-  "contributors": [
-  ],
+  "devDependencies": {},
+  "contributors": [],
   "readme": "# karma-remote-reporter\n\n> Reporter for remote receivers.",
   "readmeFilename": "README.md",
   "_id": "karma-remote-reporter@0.0.1"
- }
+}
