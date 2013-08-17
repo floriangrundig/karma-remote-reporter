@@ -76,7 +76,7 @@ var RemoteReporter = function (baseReporterDecorator, config, emitter, logger, h
 
 
   this.specSuccess = this.specSkipped = this.specFailure = function (browser, result) {
-    sendData(JSON.stringify({'type': 'test', 'result': result, 'browserId': browser.id }));
+    sendData({'type': 'test', 'result': result, 'browserId': browser.id });
     log.info("specSuccess")
   };
 
