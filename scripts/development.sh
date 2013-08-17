@@ -1,17 +1,26 @@
 #!/bin/sh
 
+echo -e 'Starting to build up development environment\n'
+
 HOME_DIR=`pwd`
 
+
+echo "Creating karma plugin for remote-reporter..."
 # create a npm package from this environment
 npm pack
 
 # create directory outside to build development environment
 cd ..
-mkdir karma-remote-reporter-test
-cd  karma-remote-reporter-test
 
 TEST_ENV=`pwd`
+TEST_ENV=$TEST_ENV/karma-remote-reporter-test
+
 echo "Build test environment in directory ${TEST_ENV}"
+
+mkdir $TEST_ENV
+cd $TEST_ENV
+
+echo "Resolving Dependencies..."
 
 npm install ws
 npm install websocket
@@ -26,13 +35,13 @@ ln $HOME_DIR/index.js
 
 cd TEST_ENV
 
-echo "Finished. You are now in the test environment folder."
+echo -e '\n\nFinished. You are now in the test environment folder'
 
 echo "Now Start the test server: node test/lib/testwebsocketserver.js"
 
-echo "Go to another terminal and do cd ${TEST_ENV}"
+echo -e "Go to another terminal and do\n\ncd ${TEST_ENV}\n\n"
 
-echo "Then start karma: karma start test/lib/karma.conf.js"
+echo -e "Then start karma:\n\n karma start test/lib/karma.conf.js\n\n"
 
 echo "All test results should also occur on output of the test server"
 
