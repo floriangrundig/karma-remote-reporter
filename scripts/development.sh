@@ -25,15 +25,17 @@ echo "Resolving Dependencies..."
 npm install ws
 npm install websocket
 npm install $HOME_DIR/karma-remote-reporter-0.0.1.tgz
+
+# link into home directories needed for running reporter
 ln -s $HOME_DIR/development
 
-cd TEST_ENV/node_modules/karma-remote-reporter
+cd $TEST_ENV/node_modules/karma-remote-reporter
 mv index.js index.js.orig
 
-// DANGEROUS: this must be a hard link to work. Feels ugly...
+# DANGEROUS: this must be a hard link to work. Feels ugly...
 ln $HOME_DIR/index.js
 
-cd TEST_ENV
+cd $TEST_ENV
 
 echo -e '\n\nFinished. You are now in the test environment folder'
 
