@@ -14,7 +14,7 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'test/karma/sampleTests/*Spec.js'
+      'development/karma/sampleTests/*Spec.js'
     ],
 
 
@@ -67,7 +67,7 @@ module.exports = function(config) {
 
     // Continuous Integration mode
     // if true, it capture browsers, run tests and exit
-    singleRun: false,
+    singleRun: true,
 
     plugins: [
       'karma-jasmine',
