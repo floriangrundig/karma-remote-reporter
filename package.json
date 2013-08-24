@@ -1,31 +1,36 @@
 {
-  "name": "karma-remote-reporter",
-  "version": "0.1.0",
-  "description": "A Karma plugin. Report results in junit style via websockets to a remote server.",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [
-    "karma-plugin",
-    "reporter",
-    "junit"
-  ],
-  "author": {
-    "name": "Grundig Florian",
-    "email": "florian.grundig@gmx.de"
-  },
-  "dependencies": {},
-  "peerDependencies": {
-    "karma": ">=0.9"
-  },
-  "license": "MIT",
-  "devDependencies": {},
-  "contributors": [
-    "Florian Grundig <florian.grundig@gmx.de>",
-    "Oliver Hoogvliet <oliver@hoogvliet.de>"
-  ],
-  "readme": "# karma-remote-reporter\n\n> Reporter for remote receivers.",
-  "readmeFilename": "README.md",
-  "_id": "karma-remote-reporter@0.1.0"
+    "name": "karma-remote-reporter",
+    "version": "0.1.0",
+    "description": "A Karma plugin. Report results in junit style via websockets to a remote server.",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+        "karma-plugin",
+        "reporter",
+        "junit"
+    ],
+    "author": {
+        "name": "Grundig Florian",
+        "email": "florian.grundig@gmx.de"
+    },
+    "dependencies": {
+        "websocket": ">=1.0.8"
+    },
+    "peerDependencies": {
+        "karma": ">=0.9.x"
+    },
+    "license": "MIT",
+    "devDependencies": {},
+    "contributors": [
+        "Florian Grundig <florian.grundig@gmx.de>",
+        "Oliver Hoogvliet <oliver@hoogvliet.de>"
+    ],
+    "engines": {
+        "node": "~0.8 || ~0.10"
+    },
+    "readme": "# karma-remote-reporter\n\n> Reporter for remote receivers.",
+    "readmeFilename": "README.md",
+    "_id": "karma-remote-reporter@0.1.0"
 }
