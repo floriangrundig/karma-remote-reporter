@@ -1,6 +1,6 @@
 {
   "name": "karma-remote-reporter",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "A Karma plugin. Report results in junit style via websockets to a remote server.",
   "main": "index.js",
   "scripts": {
@@ -27,5 +27,5 @@
   ],
   "readme": "# karma-remote-reporter\n\n> Reporter for remote receivers.",
   "readmeFilename": "README.md",
-  "_id": "karma-remote-reporter@0.0.1"
+  "_id": "karma-remote-reporter@0.1.0"
 }
