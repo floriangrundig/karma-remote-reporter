@@ -1,8 +1,6 @@
 karma-remote-reporter
 =====================
 
-THIS IS STILL WORK IN PROGRESS! A full documention how to use this plugin will follow soon.
-
 Prerequisites
 -------------
 
