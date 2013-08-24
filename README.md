@@ -6,9 +6,7 @@ Prerequisites
 
 * install node.js (http://nodejs.org/download/)
 * install karma (http://karma-runner.github.com)
-* install ws for nodejs: npm install ws
-* install websocket for nodejs: npm install websocket
-
+* in your apps package.json add karma and the following dependency: "karma-remote-reporter" : ">=0.1.x"
 
 Basics
 ------
@@ -22,6 +20,7 @@ Development
 -----------
 To work at the plugin we need to build a test environment. It has three components:
 
+* install ws for nodejs: npm install ws
 * the karma-remote-report plugin
 * test environment to execute karma with this plugin
 * a nodejs test instance to receive test messages
