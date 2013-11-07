@@ -4,7 +4,11 @@ var WebSocketClient = require('websocket').client;
 
 var RemoteReporter = function (baseReporterDecorator, config, emitter, logger, helper, formatError) {
   var log = logger.create('reporter.remote');
-  var clientUrl = "ws://" + config.host + ":" + config.port;
+  var host = config.host || "localhost";
+  var port = config.port || 9889;
+  var finishDelay = config.finishDelay || 1000;
+
+  var clientUrl = "ws://" + host + ":" + port;
 
   var client = new WebSocketClient();
   client.connect(clientUrl, 'karma-test-results'); // TODO: wait until connected, because the reporter could be called by karma before the connection process finished
@@ -25,15 +29,13 @@ var RemoteReporter = function (baseReporterDecorator, config, emitter, logger, h
   }];
 
 
-  client.on('connectFailed', function (error) {
-    console.log('Connect Error: ' + error.toString());
+  client.on('connectFailed', function () {
+    log.info('No connection to remote server ("'+clientUrl+'") to report test results');
   });
 
   function sendData(objectToSend) {
-    if (connection.connected) {
+    if (connection && connection.connected) {
       connection.sendUTF(JSON.stringify(objectToSend));
-    } else {
-      log.error("Failed to use connection")
     }
   }
 
@@ -43,46 +45,41 @@ var RemoteReporter = function (baseReporterDecorator, config, emitter, logger, h
 
   this.onRunStart = function (browsers) {
 
-    log.info('WebSocket client connected');
-    connection.on('error', function (error) {
-      log.info("Connection Error: " + error.toString());
-    });
-
-    connection.on('close', function () {
-      log.info(' Connection Closed');
-    });
-
-    var timestamp = getCurrentTimestamp();
-
-    browsers.forEach(function (browser) {
-      savedBrowsers.push({
-        name: browser.name, timestamp: timestamp, browserId: browser.id, hostname: os.hostname()
+    if (connection && connection.connected) {
+      connection.on('error', function (error) {
+        log.error("Connection Error: " + error.toString());
       });
-      log.info("onRunStart: " + savedBrowsers[browser.id]);
-    });
 
-    sendData({ "type": "browsers", "list": savedBrowsers});
+      var timestamp = getCurrentTimestamp();
+
+      browsers.forEach(function (browser) {
+        savedBrowsers.push({
+          name: browser.name, timestamp: timestamp, browserId: browser.id, hostname: os.hostname()
+        });
+        log.info("onRunStart: " + savedBrowsers[browser.id]);
+      });
+
+      sendData({ "type": "browsers", "list": savedBrowsers});
+    }
   };
 
   this.onBrowserComplete = function (browser) {
     sendData({ "type": "browserComplete", 'browserId': browser.id, 'timestamp': getCurrentTimestamp()});
-    log.info("onBrowserComplete: " + browser);
   };
 
   this.onRunComplete = function () {
     sendData({ 'type': 'runComplete' });
-    log.info("onRunComplete ")
   };
 
 
   this.specSuccess = this.specSkipped = this.specFailure = function (browser, result) {
     sendData({'type': 'test', 'result': result, 'browserId': browser.id });
-    log.info("specSuccess")
   };
 
   this.onExit = function (done) {
-    log.info("onExit");
-    done();
+    setTimeout(function(){
+      done();
+    },finishDelay);
   };
 
 };
