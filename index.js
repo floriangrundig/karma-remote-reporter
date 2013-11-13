@@ -71,6 +71,10 @@ var RemoteReporter = function (baseReporterDecorator, config, emitter, logger, h
     sendData({ 'type': 'runComplete' });
   };
 
+  this.onBrowserError = function(browser, error) {
+    sendData({ 'type': 'browserError', 'error': error});
+  };
+
 
   this.specSuccess = this.specSkipped = this.specFailure = function (browser, result) {
     sendData({'type': 'test', 'result': result, 'browserId': browser.id });
