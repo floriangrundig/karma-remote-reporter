@@ -1,6 +1,15 @@
 karma-remote-reporter
 =====================
 
+Current Version 0.1.3
+
+History
+-------
+Version 0.1.3:
+* syntax error will be reported
+Version 0.1.2:
+* Bugfix: karma-remote-reporter will wait per default 1000ms onExit-Event to finish reporting (this is configurable with "finishDelay")
+
 Prerequisites
 -------------
 
