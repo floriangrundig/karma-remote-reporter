@@ -72,7 +72,7 @@ var RemoteReporter = function (baseReporterDecorator, config, emitter, logger, h
   };
 
   this.onBrowserError = function(browser, error) {
-    sendData({ 'type': 'browserError', 'error': error});
+    sendData({ 'type': 'browserError', 'browserId': browser.id, 'error': error});
   };
 
 
