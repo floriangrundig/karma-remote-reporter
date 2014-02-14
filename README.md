@@ -6,7 +6,7 @@ Current Version 0.1.4
 History
 -------
 Version 0.1.4:
-* the remote reporter will recognize the command line argument --remoteReporterPort=<ANY_NUMBER> to configure the remote report server port
+* the remote reporter will recognize the command line argument --remoteReporterPort=ANY_NUMBER to configure the remote report server port
 
 Version 0.1.3:
 * syntax error will be reported
