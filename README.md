@@ -5,6 +5,9 @@ Current Version 0.1.3
 
 History
 -------
+Version 0.1.4:
+* the remote reporter will recognize the command line argument --remoteReporterPort=<ANY_NUMBER> to configure the remote report server port
+
 Version 0.1.3:
 * syntax error will be reported
 
@@ -16,6 +19,7 @@ Prerequisites
 
 * install node.js (http://nodejs.org/download/)
 * install karma (http://karma-runner.github.com)
+    * do to some bugs in karma (v0.11.0) the required karma version is limited to v0.10.x
 * in your apps package.json add karma and the following dependency: "karma-remote-reporter" : ">=0.1.x"
 
 Basics
