@@ -46,6 +46,7 @@
         var allMessages = [];
 
         var client = new WebSocketClient();
+        var errorHandlerRegistered = false;
 
         client.connect(clientUrl, 'karma-test-results'); // TODO: wait until connected, because the reporter could be called by karma before the connection process finished
 
@@ -83,8 +84,28 @@
                     savedBrowsers.push({
                         name: browser.name, timestamp: timestamp, browserId: browser.id, hostname: os.hostname()
                     });
-                    log.info("onRunStart: " + savedBrowsers[browser.id]);
+                    log.info("onRunStart: " + browser.id);
                 });
+
+                sendData({ "type": "browsers", "list": savedBrowsers});
+            }
+        };
+
+        this.onBrowserStart = function(browser){
+            if (connection && connection.connected) {
+              if (!errorHandlerRegistered){
+                connection.on('error', function (error) {
+                    log.error("Connection Error: " + error.toString());
+                });
+                errorHandlerRegistered = true;
+              }
+                var timestamp = getCurrentTimestamp();
+
+                  log.info('browser + connection' + browser.name);
+                    savedBrowsers.push({
+                        name: browser.name, timestamp: timestamp, browserId: browser.id, hostname: os.hostname()
+                    });
+                    log.info("onBrowserStart: " + browser.id);
 
                 sendData({ "type": "browsers", "list": savedBrowsers});
             }

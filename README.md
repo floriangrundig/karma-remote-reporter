@@ -5,6 +5,9 @@ Current Version 0.1.4
 
 History
 -------
+Version 0.1.5:
+* fixed compatibility bug with karma 0.12.x 
+
 Version 0.1.4:
 * the remote reporter will recognize the command line argument --remoteReporterPort=ANY_NUMBER to configure the remote report server port
 
