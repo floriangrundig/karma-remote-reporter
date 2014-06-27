@@ -1,7 +1,7 @@
 karma-remote-reporter
 =====================
 
-Current Version 0.1.4
+Current Version 0.1.5
 
 History
 -------
