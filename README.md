@@ -1,3 +1,5 @@
+TODO fix npm WARN package.json karma-remote-reporter@0.1.5 No repository field.s
+
 karma-remote-reporter
 =====================
 
@@ -5,6 +7,9 @@ Current Version 0.1.5
 
 History
 -------
+Version 0.2.0:
+* sending test results via pure (TCP) sockets instead of using websockets (important: update the result receiver (e.g. junit-karma-testrunner))
+
 Version 0.1.5:
 * fixed compatibility bug with karma 0.12.x 
 

@@ -1,8 +1,12 @@
 {
     "name": "karma-remote-reporter",
-    "version": "0.1.5",
+    "version": "0.2.0",
     "description": "A Karma plugin. Report results in junit style via websockets to a remote server.",
     "main": "index.js",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/FlorianGrundig/karma-remote-reporter.git"
+    },
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
     },
@@ -16,7 +20,6 @@
         "email": "florian.grundig@gmx.de"
     },
     "dependencies": {
-        "websocket": ">=1.0.8"
     },
     "peerDependencies": {
         "karma": ">=0.9.x"

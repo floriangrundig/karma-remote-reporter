@@ -2,7 +2,7 @@
 
     "use strict";
     var os = require('os');
-    var WebSocketClient = require('websocket').client;
+    var net = require('net');
 
     function getRemoteReporterPort(config){
         var port =  config.port || 9889;
@@ -39,44 +39,44 @@
         var finishDelay = config.finishDelay || 1000;
         var port = getRemoteReporterPort(config);
 
-        var clientUrl = "ws://" + host + ":" + port;
-        var connection;
+        var connected = false;
 
         var savedBrowsers = [];
         var allMessages = [];
 
-        var client = new WebSocketClient();
-        var errorHandlerRegistered = false;
+        var socket = new net.Socket();
+        socket.connect(port, host);
+        socket.setEncoding('utf8');
 
-        client.connect(clientUrl, 'karma-test-results'); // TODO: wait until connected, because the reporter could be called by karma before the connection process finished
 
-
-        client.on('connect', function (con) {
-            connection = con;
+        socket.on('connect', function () {
+            log.info('Connected to ' + host + ':' + port);
+            connected = true;
         });
 
-        client.on('connectFailed', function () {
-            log.info('No connection to remote server ("' + clientUrl + '") to report test results');
+        socket.on('error', function (err) {
+            log.info('Error while communicate to remote server ("' + host + ':' + port + '") to report test results. \n' + err);
         });
 
+        // Add a 'close' event handler for the client socket
+        socket.on('close', function() {
+            log.info('Connection closed');
+            socket.destroy();
+            connected = false;
+        });
         baseReporterDecorator(this);
 
         function sendData(objectToSend) {
-            if (connection && connection.connected) {
-                connection.sendUTF(JSON.stringify(objectToSend));
+            if (connected) {
+                socket.write(JSON.stringify(objectToSend)+"\n");
+            } else {
+                log.error("Not connected to server.")
             }
         }
 
-        this.adapters = [function (msg) {
-            allMessages.push(msg);
-        }];
-
         this.onRunStart = function (browsers) {
 
-            if (connection && connection.connected) {
-                connection.on('error', function (error) {
-                    log.error("Connection Error: " + error.toString());
-                });
+            if (connected) {
 
                 var timestamp = getCurrentTimestamp();
 
@@ -92,20 +92,14 @@
         };
 
         this.onBrowserStart = function(browser){
-            if (connection && connection.connected) {
-              if (!errorHandlerRegistered){
-                connection.on('error', function (error) {
-                    log.error("Connection Error: " + error.toString());
-                });
-                errorHandlerRegistered = true;
-              }
+            if (connected) {
                 var timestamp = getCurrentTimestamp();
 
-                  log.info('browser + connection' + browser.name);
-                    savedBrowsers.push({
-                        name: browser.name, timestamp: timestamp, browserId: browser.id, hostname: os.hostname()
-                    });
-                    log.info("onBrowserStart: " + browser.id);
+                log.info('browser + connection' + browser.name);
+                savedBrowsers.push({
+                    name: browser.name, timestamp: timestamp, browserId: browser.id, hostname: os.hostname()
+                });
+                log.info("onBrowserStart: " + browser.id);
 
                 sendData({ "type": "browsers", "list": savedBrowsers});
             }
@@ -129,9 +123,14 @@
         };
 
         this.onExit = function (done) {
-            setTimeout(function () {
-                done();
-            }, finishDelay);
+            socket.write("done\n",function() {
+                socket.destroy();
+                setTimeout(function () {
+                    done();
+                    log.info('Karma finished...');
+                }, finishDelay);
+            });
+
         };
 
     };
