@@ -33,7 +33,7 @@
     "engines": {
         "node": "~0.8 || ~0.10"
     },
-    "readme": "# karma-remote-reporter\n\n> Reporter for remote receivers.",
+    "readme": "# karma-remote-reporter\n\n> Sending test resuts via tcp sockets.",
     "readmeFilename": "README.md",
-    "_id": "karma-remote-reporter@0.1.1"
+    "_id": "karma-remote-reporter@0.2.0"
 }
